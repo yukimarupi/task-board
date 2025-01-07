@@ -1,0 +1,34 @@
+{
+  "name": "my-task-board",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@jridgewell/sourcemap-codec": "^1.5.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "glob": "^11.0.0",
+    "lru-cache": "^11.0.2",
+    "next": "15.1.3",
+    "next-pwa": "^5.6.0",
+    "postcss": "^8.4.49",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "rimraf": "^6.0.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5"
+  }
+}
