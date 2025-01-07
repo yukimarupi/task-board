@@ -22,29 +22,35 @@ const TaskCard: React.FC<TaskCardProps> = ({
   dueDate,
 }) => {
   return (
-    <div className="p-4 bg-gray-100 rounded-lg shadow">
+    <div className="p-4 bg-white rounded-lg shadow-md">
       <h4 className="text-md font-bold">{title}</h4>
       <p className="text-xs text-gray-500">{id}</p>
       <div className="flex space-x-2 mt-2">
         {tags.map((tag, index) => (
           <span
             key={index}
-            className={`px-2 py-1 text-xs font-bold rounded-full bg-${
-              tag === "Backlog" ? "yellow-100 text-yellow-800" : ""
+            className={`px-2 py-1 text-xs font-bold rounded-full ${
+              tag === "Backlog"
+                ? "bg-yellow-100 text-yellow-800"
+                : tag === "To Do"
+                ? "bg-pink-100 text-pink-800"
+                : tag === "In Process"
+                ? "bg-purple-100 text-purple-800"
+                : "bg-green-100 text-green-800"
             }`}
           >
             {tag}
           </span>
         ))}
       </div>
-      <div className="flex items-center space-x-2 mt-2">
+      <div className="flex items-center mt-2">
         {assignees.map((avatar, index) => (
           <Image
             key={index}
             src={avatar}
-            alt="Avatar"
-            width={24}
-            height={24}
+            alt={`Avatar ${index + 1}`}
+            width={32}
+            height={32}
             className="rounded-full"
           />
         ))}
