@@ -1,5 +1,9 @@
+// src/components/TaskBoard/Column.tsx
+
 import React from "react";
 import TaskCard from "./TaskCard";
+import BoardHeader from "./BoardHeader";
+import AddTaskButton from "./AddTaskButton";
 
 interface ColumnProps {
   title: string;
@@ -17,21 +21,20 @@ interface ColumnProps {
 }
 
 const Column: React.FC<ColumnProps> = ({ title, count, tasks }) => {
+  const handleAddTask = () => {
+    // 新しいタスクを追加するロジックをここに実装します
+    console.log(`Add task to ${title}`);
+  };
+
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-bold">{title}</h3>
-        {count && (
-          <span className="text-sm bg-gray-200 px-2 py-1 rounded-full">
-            {count}
-          </span>
-        )}
-      </div>
-      <div className="mt-4 space-y-4">
+    <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+      <BoardHeader title={title} count={count} />
+      <div className="space-y-4">
         {tasks.map((task) => (
           <TaskCard key={task.id} {...task} />
         ))}
       </div>
+      <AddTaskButton onClick={handleAddTask} />
     </div>
   );
 };
