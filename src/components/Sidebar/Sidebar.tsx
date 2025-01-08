@@ -1,31 +1,29 @@
-//サイドバーをMenuItem と ProfileCarを使用して表示
 import React from "react";
 import Image from "next/image";
-import MenuItem from "./MenuItem";
+import Link from "next/link";
 import ProfileCard from "./ProfileCard";
+import MenuItem from "./MenuItem";
 
 const Sidebar: React.FC = () => {
   const menuItems = [
-    { name: "Inbox", count: 4, icon: "/icons/inbox.png" },
-    { name: "Drive Files", count: 435, icon: "/icons/driveFiles.png" },
-    { name: "Boards", count: 5, icon: "/icons/Boards.png" },
-    { name: "Updates", count: 2, icon: "/icons/Updates.png" },
-    { name: "Analytics", count: 2, icon: "/icons/Znalytics.png" },
-    { name: "CRM Dashboard", count: 2, icon: "/icons/CRM-Dashboard.png" },
-    { name: "Ecommerce", count: null, icon: "/icons/Ecommerce.png" },
-    { name: "Cryptocurrency", count: null, icon: "/icons/Cryptocurrency.png" },
-    { name: "Projects", count: null, icon: "/icons/Projects.png" },
-    { name: "NFT Marketplace", count: null, icon: "/icons/NFT Marketplace.png" },
-    { name: "Settings", count: 2, icon: "/icons/Settings.png" },
+    { name: "Inbox", count: 4, icon: "/icons/inbox.png", href: "/inbox" },
+    { name: "Drive Files", count: 435, icon: "/icons/driveFiles.png", href: "/drive-files" },
+    { name: "Boards", count: 5, icon: "/icons/Boards.png", href: "/boards" },
+    { name: "Updates", count: 2, icon: "/icons/Updates.png", href: "/updates" },
+    { name: "Analytics", count: 2, icon: "/icons/Znalytics.png", href: "/analytics" },
+    { name: "CRM Dashboard", count: 2, icon: "/icons/CRM-Dashboard.png", href: "/crm-dashboard" },
+    { name: "Ecommerce", count: null, icon: "/icons/Ecommerce.png", href: "/ecommerce" },
+    { name: "Cryptocurrency", count: null, icon: "/icons/Cryptocurrency.png", href: "/cryptocurrency" },
+    { name: "Projects", count: null, icon: "/icons/Projects.png", href: "/projects" },
+    { name: "NFT Marketplace", count: null, icon: "/icons/NFT Marketplace.png", href: "/nft-marketplace" },
+    { name: "Settings", count: 2, icon: "/icons/Settings.png", href: "/settings" }, // Settings ページへのリンク
   ];
 
   return (
     <div className="w-64 bg-gray-50 text-gray-800 h-screen p-4">
       {/* Dashboard Header */}
       <div className="flex items-center justify-between mb-8">
-        {/* Dashboard Text */}
         <h2 className="text-xl font-bold">Dashboard</h2>
-        {/* Hamburger Menu Icon */}
         <div className="w-6 h-6">
           <Image
             src="/icons/HamburgerButton.png"
@@ -45,15 +43,15 @@ const Sidebar: React.FC = () => {
 
       {/* メニュー */}
       <ul className="space-y-6">
-        {menuItems.map((item) => (
-          <MenuItem
-            key={item.name}
-            name={item.name}
-            count={item.count}
-            icon={item.icon}
-          />
-        ))}
-      </ul>
+  {menuItems.map((item) => (
+    <li key={item.name}>
+      <Link href={item.href}>
+        <MenuItem name={item.name} count={item.count} icon={item.icon} />
+      </Link>
+    </li>
+  ))}
+</ul>
+
     </div>
   );
 };
