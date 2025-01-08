@@ -43,7 +43,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
           </span>
         ))}
       </div>
-      <div className="flex items-center mt-2">
+      <div className="flex items-center mt-2 space-x-2">
         {assignees.map((avatar, index) => (
           <Image
             key={index}
