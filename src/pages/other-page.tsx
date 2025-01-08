@@ -1,4 +1,6 @@
-import React from "react";
+//その他のページ。例えば、設定ページやダッシュボードの別セクション用。
+
+// import React from "react";
 
 const OtherPage: React.FC = () => {
   return (

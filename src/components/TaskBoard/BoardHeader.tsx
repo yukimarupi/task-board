@@ -1,5 +1,6 @@
-// src/components/TaskBoard/BoardHeader.tsx
 
+// src/components/TaskBoard/BoardHeader.tsx
+//タスクボードのヘッダー部分。
 import React from "react";
 
 interface BoardHeaderProps {

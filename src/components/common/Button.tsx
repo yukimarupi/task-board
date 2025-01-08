@@ -1,3 +1,4 @@
+// 汎用的なボタンコンポーネント。
 import React from "react";
 
 interface ButtonProps {

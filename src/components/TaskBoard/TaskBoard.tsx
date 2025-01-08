@@ -1,3 +1,4 @@
+//タスクボード全体のメインコンポーネント。
 import React from "react";
 import Column from "./Column";
 

@@ -1,4 +1,5 @@
-import React from "react";
+//設定画面。
+// import React from "react";
 
 const Settings: React.FC = () => {
   return (

@@ -1,3 +1,4 @@
+//通知アイコン部分を管理。
 import React from "react";
 import Image from "next/image";
 

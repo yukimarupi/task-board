@@ -1,3 +1,4 @@
+//タスクに関する型（例: タスクID、ステータス、期限など）。
 export interface Task {
     id: string;
     title: string;

@@ -1,3 +1,4 @@
+//検索バーのコンポーネント。
 import React from "react";
 
 const SearchBar: React.FC = () => {

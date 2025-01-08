@@ -1,4 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+
+//Tailwind CSSのカスタマイズ設定。
+// /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}", // Tailwindを適用するファイルパス

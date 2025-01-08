@@ -1,3 +1,4 @@
+//タスク関連のロジック（状態管理や操作）をまとめたカスタムフック。
 import { useState } from "react";
 
 interface Task {

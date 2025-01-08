@@ -1,3 +1,5 @@
+
+//TypeScriptの設定ファイル。
 {
   "compilerOptions": {
     "target": "ES2017",

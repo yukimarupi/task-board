@@ -1,5 +1,5 @@
 // src/components/TaskBoard/TaskCard.tsx
-
+//個々のタスクカードを表現するコンポーネント。
 import React from "react";
 import Image from "next/image";
 

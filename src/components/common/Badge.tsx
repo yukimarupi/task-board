@@ -1,3 +1,4 @@
+//タスクや通知などのバッジ表示用コンポーネント
 import React from "react";
 
 interface BadgeProps {

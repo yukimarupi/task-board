@@ -1,5 +1,5 @@
 // src/components/TaskBoard/Column.tsx
-
+//各タスクカラム（Backlog, To Do, etc.）のコンポーネント。
 import React from "react";
 import TaskCard from "./TaskCard";
 import BoardHeader from "./BoardHeader";

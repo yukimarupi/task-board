@@ -1,3 +1,4 @@
+//ヘッダー全体をラップするレイアウト用コンポーネント。
 import React from "react";
 import TabHeader from "./TabHeader";
 import SubHeader from "./SubHeader";

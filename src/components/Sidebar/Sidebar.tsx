@@ -1,5 +1,8 @@
+//サイドバーをMenuItem と ProfileCarを使用して表示
 import React from "react";
 import Image from "next/image";
+import MenuItem from "./MenuItem";
+import ProfileCard from "./ProfileCard";
 
 const Sidebar: React.FC = () => {
   const menuItems = [
@@ -25,7 +28,7 @@ const Sidebar: React.FC = () => {
         {/* Hamburger Menu Icon */}
         <div className="w-6 h-6">
           <Image
-            src="/icons/HamburgerButton.png" // ハンバーガーメニューアイコンのパス
+            src="/icons/HamburgerButton.png"
             alt="Hamburger Menu"
             width={24}
             height={24}
@@ -33,44 +36,22 @@ const Sidebar: React.FC = () => {
         </div>
       </div>
 
-      {/* ユーザー情報 */}
-      <div className="flex items-center mb-8">
-        <Image
-          src="/images/profile.png" // プロフィール画像のパス
-          alt="Profile"
-          width={40}
-          height={40}
-          className="rounded-full"
-        />
-        <div className="ml-4">
-          <h3 className="text-sm font-bold">Nancy Martino</h3>
-          <p className="text-xs text-gray-500">Designer</p>
-        </div>
-      </div>
+      {/* プロフィール */}
+      <ProfileCard
+        name="Nancy Martino"
+        role="Designer"
+        image="/images/profile.png"
+      />
 
       {/* メニュー */}
       <ul className="space-y-6">
         {menuItems.map((item) => (
-          <li key={item.name} className="flex items-center space-x-4">
-            {/* アイコン */}
-            <div className="w-6 h-6 relative">
-              <Image
-                src={item.icon}
-                alt={item.name}
-                width={24}
-                height={24}
-                className="rounded"
-              />
-            </div>
-            {/* 名前 */}
-            <span className="flex-1">{item.name}</span>
-            {/* カウント（あれば表示） */}
-            {item.count !== null && (
-              <span className="ml-auto bg-gray-200 text-xs font-bold rounded-full px-2 py-1 text-gray-800">
-                {item.count}
-              </span>
-            )}
-          </li>
+          <MenuItem
+            key={item.name}
+            name={item.name}
+            count={item.count}
+            icon={item.icon}
+          />
         ))}
       </ul>
     </div>
