@@ -12,7 +12,20 @@ const TabHeader: React.FC = () => {
 
   return (
     <div className="flex justify-between items-center px-6 py-3 bg-gray-50 shadow-sm">
-      {/* タブメニュー */}
+      {/* 左側: タイトルと編集ボタン */}
+      <div className="flex items-center space-x-2">
+        <h1 className="text-xl font-bold text-gray-800">Task Boards</h1>
+        <button className="w-5 h-5 relative">
+          <Image
+            src="/icons/edit-icon.png" // 編集ボタン用アイコンを `/public/icons` に配置
+            alt="Edit"
+            layout="fill"
+            objectFit="contain"
+          />
+        </button>
+      </div>
+
+      {/* 中央: タブメニュー */}
       <div className="flex space-x-4">
         {tabs.map((tab, index) => (
           <button
@@ -28,7 +41,7 @@ const TabHeader: React.FC = () => {
         ))}
       </div>
 
-      {/* チームメンバー */}
+      {/* 右側: チームメンバー */}
       <div className="flex items-center -space-x-2">
         {teamMembers.map((src, index) => (
           <div key={index} className="relative w-8 h-8">

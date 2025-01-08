@@ -9,7 +9,7 @@ const Header: React.FC = () => {
         {/* 検索アイコン */}
         <div className="relative w-6 h-6">
           <Image
-            src="/icons/Header/vector.png" // 修正済みファイル名
+            src="/icons/Header/vector_3.png" // 修正済みファイル名
             alt="Search"
             width={24}
             height={24}
@@ -65,7 +65,7 @@ const Header: React.FC = () => {
         {/* 通知アイコン */}
         <div className="relative w-6 h-6">
           <Image
-            src="/icons/Header/vector_2.png" // 修正済みファイル名
+            src="/icons/Header/bel.png" // 修正済みファイル名
             alt="Notifications"
             width={24}
             height={24}

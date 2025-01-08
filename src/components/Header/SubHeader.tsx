@@ -8,7 +8,7 @@ const SubHeader: React.FC = () => {
       <div className="flex items-center space-x-4">
         <button className="flex items-center space-x-2 px-3 py-2 bg-gray-100 rounded-md">
           <Image
-            src="/icons/1.png"
+            src="/icons/BoardView.png"
             alt="Board View"
             width={24}
             height={24}
@@ -19,7 +19,7 @@ const SubHeader: React.FC = () => {
         </button>
         <button className="flex items-center space-x-2 px-3 py-2 bg-gray-100 rounded-md">
           <Image
-            src="/icons/2.png"
+            src="/icons/ListView.png"
             alt="List View"
             width={24}
             height={24}
@@ -32,7 +32,7 @@ const SubHeader: React.FC = () => {
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-2">
           <Image
-            src="/icons/3.png"
+            src="/icons/lock.png"
             alt="Limited Access"
             width={16}
             height={16}
@@ -62,21 +62,24 @@ const SubHeader: React.FC = () => {
           />
           <button className="bg-gray-100 px-4">
             <Image
-              src="/icons/4.png"
+              src="/icons/Search.png"
               alt="Search Icon"
               width={16}
               height={16}
             />
           </button>
         </div>
-        <button>
-          <Image
-            src="/icons/5.png"
-            alt="Task Icon"
-            width={24}
-            height={24}
-          />
-        </button>
+        {/* 右側のアイコン群 */}
+        {[1, 2, 3, 4, 5].map((num) => (
+          <button key={num} className="p-2 bg-gray-100 rounded-md">
+            <Image
+              src={`/icons/category${num}.png`}
+              alt={`Category ${num}`}
+              width={24}
+              height={24}
+            />
+          </button>
+        ))}
       </div>
     </div>
   );
