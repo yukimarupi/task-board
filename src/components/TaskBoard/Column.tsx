@@ -1,13 +1,11 @@
-// src/components/TaskBoard/Column.tsx
-//各タスクカラム（Backlog, To Do, etc.）のコンポーネント。
-import React from "react";
+import React, { useState } from "react";
 import TaskCard from "./TaskCard";
 import BoardHeader from "./BoardHeader";
 import AddTaskButton from "./AddTaskButton";
+import AddTaskModal from "./AddTaskModal";
 
 interface ColumnProps {
   title: string;
-  count?: number;
   tasks: {
     id: string;
     title: string;
@@ -20,21 +18,46 @@ interface ColumnProps {
   }[];
 }
 
-const Column: React.FC<ColumnProps> = ({ title, count, tasks }) => {
+const Column: React.FC<ColumnProps> = ({ title, tasks }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [taskList, setTaskList] = useState(tasks); // タスクリストを状態で管理
+
   const handleAddTask = () => {
-    // 新しいタスクを追加するロジックをここに実装します
-    console.log(`Add task to ${title}`);
+    setIsModalOpen(true); // モーダルを開く
+  };
+
+  const handleAddTaskSubmit = (newTask: { title: string; dueDate: string }) => {
+    const newTaskData = {
+      id: `#${Math.random().toString(36).substr(2, 5)}`, // ランダムなID
+      title: newTask.title,
+      status: title,
+      assignees: [],
+      comments: 0,
+      attachments: 0,
+      tags: [title],
+      dueDate: newTask.dueDate,
+    };
+
+    setTaskList((prev) => [...prev, newTaskData]); // 新しいタスクをリストに追加
+    setIsModalOpen(false); // モーダルを閉じる
   };
 
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-      <BoardHeader title={title} count={count} />
+      <BoardHeader title={title} count={taskList.length} />
       <div className="space-y-4">
-        {tasks.map((task) => (
+        {taskList.map((task) => (
           <TaskCard key={task.id} {...task} />
         ))}
       </div>
       <AddTaskButton onClick={handleAddTask} />
+      {isModalOpen && (
+        <AddTaskModal
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleAddTaskSubmit}
+          status={title}
+        />
+      )}
     </div>
   );
 };
