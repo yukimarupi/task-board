@@ -1,7 +1,6 @@
 //ユーザーのアバターアイコンを表示する
-import React from "react";
-import Image from "next/image";
-
+import React from 'react';
+import Image from 'next/image';
 
 interface AvatarProps {
   src: string;
@@ -9,7 +8,7 @@ interface AvatarProps {
   size?: string; // Tailwind CSS のクラスを渡す
 }
 
-const Avatar: React.FC<AvatarProps> = ({ src, alt = "Avatar" }) => {
+const Avatar: React.FC<AvatarProps> = ({ src, alt = 'Avatar' }) => {
   return (
     <Image
       src={src}
@@ -18,7 +17,6 @@ const Avatar: React.FC<AvatarProps> = ({ src, alt = "Avatar" }) => {
       height={50}
       className={`rounded-full border border-gray-200`}
     />
-
   );
 };
 

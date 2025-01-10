@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format": "prettier --write 'src/**/*.{ts,tsx,json,css,md}'",
     "lint": "next lint"
   },
   "dependencies": {
@@ -22,6 +23,8 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9.17.0",
+    "prettier": "^3.4.2",
     "@types/node": "^22.10.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -1,13 +1,15 @@
 //通知アイコン部分を管理。
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
 const NotificationIcons: React.FC = () => {
   return (
     <div className="flex items-center space-x-6">
       {/* 通知アイコン */}
       <button className="relative">
-        <span className="material-icons text-gray-600 text-2xl">notifications</span>
+        <span className="material-icons text-gray-600 text-2xl">
+          notifications
+        </span>
         <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
           2
         </span>

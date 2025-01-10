@@ -1,13 +1,19 @@
 // src/components/Profile/EditProfileForm.tsx
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const EditProfileForm = ({ initialName, initialEmail }: { initialName: string; initialEmail: string }) => {
+const EditProfileForm = ({
+  initialName,
+  initialEmail,
+}: {
+  initialName: string;
+  initialEmail: string;
+}) => {
   const [name, setName] = useState(initialName);
   const [email, setEmail] = useState(initialEmail);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Updated profile:", { name, email });
+    console.log('Updated profile:', { name, email });
   };
 
   return (
@@ -30,7 +36,12 @@ const EditProfileForm = ({ initialName, initialEmail }: { initialName: string; i
           className="border p-2 w-full"
         />
       </div>
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">保存</button>
+      <button
+        type="submit"
+        className="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        保存
+      </button>
     </form>
   );
 };

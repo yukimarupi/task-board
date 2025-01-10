@@ -1,6 +1,6 @@
 //サブヘッダー（タブやナビゲーション用）。
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
 const SubHeader: React.FC = () => {
   return (

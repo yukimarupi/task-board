@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 interface AddTaskModalProps {
   onClose: () => void;
@@ -6,19 +6,23 @@ interface AddTaskModalProps {
   status: string;
 }
 
-const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onSubmit, status }) => {
-  const [taskName, setTaskName] = useState("");
-  const [dueDate, setDueDate] = useState("");
+const AddTaskModal: React.FC<AddTaskModalProps> = ({
+  onClose,
+  onSubmit,
+  status,
+}) => {
+  const [taskName, setTaskName] = useState('');
+  const [dueDate, setDueDate] = useState('');
   const [tags, setTags] = useState<string[]>([]); // タグの状態を追加
-  const [selectedTag, setSelectedTag] = useState("");
+  const [selectedTag, setSelectedTag] = useState('');
 
   // タグ候補
-  const availableTags = ["Design", "Development", "Testing", "Deployment"];
+  const availableTags = ['Design', 'Development', 'Testing', 'Deployment'];
 
   const handleAddTag = () => {
     if (selectedTag && !tags.includes(selectedTag)) {
       setTags([...tags, selectedTag]);
-      setSelectedTag("");
+      setSelectedTag('');
     }
   };
 
@@ -29,8 +33,8 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onSubmit, status }
   const handleSubmit = () => {
     if (taskName && dueDate) {
       onSubmit({ title: taskName, dueDate, tags }); // タグを含むデータを送信
-      setTaskName("");
-      setDueDate("");
+      setTaskName('');
+      setDueDate('');
       setTags([]);
     }
   };
@@ -39,7 +43,9 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, onSubmit, status }
     <div className="modal-container">
       <div className="modal-content">
         <h2 className="modal-title">Add Task</h2>
-        <p className="modal-description">Adding task to <strong>{status}</strong></p>
+        <p className="modal-description">
+          Adding task to <strong>{status}</strong>
+        </p>
         <input
           type="text"
           placeholder="Task Name"

@@ -1,14 +1,21 @@
 //タブ形式のヘッダー。
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
 const TabHeader: React.FC = () => {
-  const tabs = ["Timeline", "Calendar", "Dashboard", "Progress", "Forms", "More"];
+  const tabs = [
+    'Timeline',
+    'Calendar',
+    'Dashboard',
+    'Progress',
+    'Forms',
+    'More',
+  ];
   const teamMembers = [
-    "/images/avatar1.png",
-    "/images/avatar2.png",
-    "/images/avatar6.png",
-    "/images/avatar4.png",
+    '/images/avatar1.png',
+    '/images/avatar2.png',
+    '/images/avatar6.png',
+    '/images/avatar4.png',
   ];
 
   return (
@@ -32,9 +39,9 @@ const TabHeader: React.FC = () => {
           <button
             key={index}
             className={`${
-              tab === "Timeline"
-                ? "text-blue-500 border-b-2 border-blue-500"
-                : "text-gray-500"
+              tab === 'Timeline'
+                ? 'text-blue-500 border-b-2 border-blue-500'
+                : 'text-gray-500'
             } px-2 py-1 font-semibold`}
           >
             {tab}

@@ -1,6 +1,6 @@
 //設定画面。
 // src/pages/settings.tsx
-import React from "react";
+import React from 'react';
 
 const Settings: React.FC = () => {
   return (

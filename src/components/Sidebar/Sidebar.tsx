@@ -1,25 +1,65 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import ProfileCard from "./ProfileCard";
-import MenuItem from "./MenuItem";
-import { useUser } from "../../context/UserContext"; // ユーザー情報のコンテキストをインポート
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import ProfileCard from './ProfileCard';
+import MenuItem from './MenuItem';
+import { useUser } from '../../context/UserContext'; // ユーザー情報のコンテキストをインポート
 
 const Sidebar: React.FC = () => {
   const { user } = useUser(); // ログイン中のユーザー情報を取得
 
   const menuItems = [
-    { name: "Inbox", count: 4, icon: "/icons/inbox.svg", href: "/inbox" },
-    { name: "Drive Files", count: 435, icon: "/icons/driveFiles.png", href: "/drive-files" },
-    { name: "Boards", count: 5, icon: "/icons/Boards.png", href: "/boards" },
-    { name: "Updates", count: 2, icon: "/icons/Updates.png", href: "/updates" },
-    { name: "Analytics", count: 2, icon: "/icons/Znalytics.png", href: "/analytics" },
-    { name: "CRM Dashboard", count: 2, icon: "/icons/CRM-Dashboard.png", href: "/crm-dashboard" },
-    { name: "Ecommerce", count: null, icon: "/icons/Ecommerce.png", href: "/ecommerce" },
-    { name: "Cryptocurrency", count: null, icon: "/icons/Cryptocurrency.png", href: "/cryptocurrency" },
-    { name: "Projects", count: null, icon: "/icons/Projects.png", href: "/projects" },
-    { name: "NFT Marketplace", count: null, icon: "/icons/NFT Marketplace.png", href: "/nft-marketplace" },
-    { name: "Settings", count: 2, icon: "/icons/Settings.png", href: "/settings" },
+    { name: 'Inbox', count: 4, icon: '/icons/inbox.svg', href: '/inbox' },
+    {
+      name: 'Drive Files',
+      count: 435,
+      icon: '/icons/driveFiles.png',
+      href: '/drive-files',
+    },
+    { name: 'Boards', count: 5, icon: '/icons/Boards.png', href: '/boards' },
+    { name: 'Updates', count: 2, icon: '/icons/Updates.png', href: '/updates' },
+    {
+      name: 'Analytics',
+      count: 2,
+      icon: '/icons/Znalytics.png',
+      href: '/analytics',
+    },
+    {
+      name: 'CRM Dashboard',
+      count: 2,
+      icon: '/icons/CRM-Dashboard.png',
+      href: '/crm-dashboard',
+    },
+    {
+      name: 'Ecommerce',
+      count: null,
+      icon: '/icons/Ecommerce.png',
+      href: '/ecommerce',
+    },
+    {
+      name: 'Cryptocurrency',
+      count: null,
+      icon: '/icons/Cryptocurrency.png',
+      href: '/cryptocurrency',
+    },
+    {
+      name: 'Projects',
+      count: null,
+      icon: '/icons/Projects.png',
+      href: '/projects',
+    },
+    {
+      name: 'NFT Marketplace',
+      count: null,
+      icon: '/icons/NFT Marketplace.png',
+      href: '/nft-marketplace',
+    },
+    {
+      name: 'Settings',
+      count: 2,
+      icon: '/icons/Settings.png',
+      href: '/settings',
+    },
   ];
 
   return (
@@ -42,7 +82,7 @@ const Sidebar: React.FC = () => {
         <ProfileCard
           name={user.name}
           role={user.role}
-          image={user.image || "/images/default-profile.png"} // デフォルト画像を指定
+          image={user.image || '/images/default-profile.png'} // デフォルト画像を指定
         />
       )}
 

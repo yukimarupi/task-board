@@ -1,7 +1,7 @@
 // src/components/TaskBoard/AddTaskButton.tsx
 // 新しいタスクを追加するボタン。
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
 interface AddTaskButtonProps {
   onClick: () => void;

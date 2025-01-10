@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { useUser } from "../context/UserContext";
+import React, { useState } from 'react';
+import { useUser } from '../context/UserContext';
 
 const ProfilePage = () => {
   const { user, setUser } = useUser();
 
   const [editMode, setEditMode] = useState(false);
-  const [name, setName] = useState(user?.name || "");
-  const [role, setRole] = useState(user?.role || "");
-  const [image, setImage] = useState(user?.image || "");
-  const [userId, setUserId] = useState(user?.id || "");
+  const [name, setName] = useState(user?.name || '');
+  const [role, setRole] = useState(user?.role || '');
+  const [image, setImage] = useState(user?.image || '');
+  const [userId, setUserId] = useState(user?.id || '');
 
   const handleSave = () => {
     if (!name || !role || !userId) {
-      alert("すべてのフィールドを入力してください。");
+      alert('すべてのフィールドを入力してください。');
       return;
     }
 
@@ -23,10 +23,10 @@ const ProfilePage = () => {
 
   const handleCancel = () => {
     // 編集内容をリセット
-    setName(user?.name || "");
-    setRole(user?.role || "");
-    setImage(user?.image || "");
-    setUserId(user?.id || "");
+    setName(user?.name || '');
+    setRole(user?.role || '');
+    setImage(user?.image || '');
+    setUserId(user?.id || '');
     setEditMode(false);
   };
 

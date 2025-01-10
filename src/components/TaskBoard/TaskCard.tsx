@@ -1,13 +1,13 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
 // 日付をフォーマットする関数
 const formatDate = (date: string | Date): string => {
   const d = new Date(date);
-  return d.toLocaleDateString("en-US", {
-    month: "short",
-    day: "2-digit",
-    year: "numeric",
+  return d.toLocaleDateString('en-US', {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
   });
 };
 
@@ -40,11 +40,11 @@ const TaskCard: React.FC<TaskCardProps> = ({
           <span
             key={index}
             className={`px-2 py-1 text-xs font-medium rounded ${
-              tag === "Design"
-                ? "bg-blue-100 text-blue-800"
-                : tag === "Development"
-                ? "bg-green-100 text-green-800"
-                : "bg-gray-100 text-gray-800"
+              tag === 'Design'
+                ? 'bg-blue-100 text-blue-800'
+                : tag === 'Development'
+                  ? 'bg-green-100 text-green-800'
+                  : 'bg-gray-100 text-gray-800'
             }`}
           >
             {tag}
@@ -56,7 +56,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
           {assignees.map((avatar, index) => (
             <div key={index} className="relative w-6 h-6">
               <Image
-                src={avatar || "/images/default-avatar.png"}
+                src={avatar || '/images/default-avatar.png'}
                 alt={`Assignee ${index + 1}`}
                 layout="fill"
                 className="rounded-full border-2 border-white"

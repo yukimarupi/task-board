@@ -1,28 +1,30 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import axios from 'axios';
 
-const API_BASE_URL = "http://localhost:4000"; // バックエンドのURL
+const API_BASE_URL = 'http://localhost:4000'; // バックエンドのURL
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
-    if (req.method === "PUT") {
+    if (req.method === 'PUT') {
       const { id } = req.query;
       const response = await axios.put(`${API_BASE_URL}/users/${id}`, req.body);
       res.status(200).json(response.data);
     } else {
-      res.setHeader("Allow", ["PUT"]);
+      res.setHeader('Allow', ['PUT']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-} catch (error) {
+  } catch (error) {
     if (axios.isAxiosError(error)) {
       // AxiosErrorの場合に詳細なメッセージを設定
-      res.status(500).json({ error: error.response?.data?.error || error.message });
+      res
+        .status(500)
+        .json({ error: error.response?.data?.error || error.message });
     } else {
       // その他のエラーの場合
-      res.status(500).json({ error: "予期しないエラーが発生しました。" });
+      res.status(500).json({ error: '予期しないエラーが発生しました。' });
     }
-}
-
-
-
+  }
 }

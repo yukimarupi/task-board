@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type User = {
   id: string; // ユーザーIDを追加
@@ -16,10 +16,10 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>({
-    id: "12345", // 初期値としてダミーIDを設定
-    name: "Nancy Martino",
-    role: "Designer",
-    image: "/images/profile.svg",
+    id: '12345', // 初期値としてダミーIDを設定
+    name: 'Nancy Martino',
+    role: 'Designer',
+    image: '/images/profile.svg',
   });
 
   return (
@@ -32,7 +32,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error("useUser must be used within a UserProvider");
+    throw new Error('useUser must be used within a UserProvider');
   }
   return context;
 };

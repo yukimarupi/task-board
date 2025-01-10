@@ -1,16 +1,17 @@
 //タスクや通知などのバッジ表示用コンポーネント
-import React from "react";
+import React from 'react';
 
 interface BadgeProps {
   text: string;
   color?: string; // Tailwind の色指定クラス
 }
 
-const Badge: React.FC<BadgeProps> = ({ text, color = "bg-gray-200 text-gray-800" }) => {
+const Badge: React.FC<BadgeProps> = ({
+  text,
+  color = 'bg-gray-200 text-gray-800',
+}) => {
   return (
-    <span
-      className={`px-2 py-1 text-xs font-semibold rounded-full ${color}`}
-    >
+    <span className={`px-2 py-1 text-xs font-semibold rounded-full ${color}`}>
       {text}
     </span>
   );

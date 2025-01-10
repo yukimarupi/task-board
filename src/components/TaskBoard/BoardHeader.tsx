@@ -1,7 +1,6 @@
-
 // src/components/TaskBoard/BoardHeader.tsx
 //各列のタイトルとタスク数を表示。
-import React from "react";
+import React from 'react';
 
 interface BoardHeaderProps {
   title: string;

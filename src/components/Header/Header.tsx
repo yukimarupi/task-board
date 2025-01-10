@@ -1,7 +1,7 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useUser } from "@/context/UserContext"; // 絶対パスでUserContextをインポート
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useUser } from '@/context/UserContext'; // 絶対パスでUserContextをインポート
 
 const Header: React.FC = () => {
   const { user } = useUser(); // Contextからユーザー情報を取得
@@ -83,7 +83,7 @@ const Header: React.FC = () => {
         <div className="relative w-8 h-8">
           <Link href="/profile">
             <Image
-              src={user?.image || "/images/default-profile.png"} // Contextからユーザー画像を取得
+              src={user?.image || '/images/default-profile.png'} // Contextからユーザー画像を取得
               alt="Profile"
               width={32}
               height={32}

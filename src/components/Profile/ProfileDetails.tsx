@@ -1,5 +1,5 @@
 // src/components/Profile/ProfileDetails.tsx
-import React from "react";
+import React from 'react';
 
 const ProfileDetails = ({ name, email }: { name: string; email: string }) => {
   return (

@@ -1,36 +1,28 @@
 //ボード全体、複数の列（Column）を表示。
-import React from "react";
-import Column from "./Column";
+import React from 'react';
+import Column from './Column';
 
 const TaskBoard: React.FC = () => {
   const data = [
     {
-      title: "Backlog Tasks",
+      title: 'Backlog Tasks',
       count: 5,
-      tasks: [
-
-      ],
+      tasks: [],
     },
     {
-      title: "To Do Tasks",
+      title: 'To Do Tasks',
 
-      tasks: [
-
-      ],
+      tasks: [],
     },
     {
-      title: "In Process",
+      title: 'In Process',
       count: 2,
-      tasks: [
-
-      ],
+      tasks: [],
     },
     {
-      title: "Done",
+      title: 'Done',
       count: 5,
-      tasks: [
-
-      ],
+      tasks: [],
     },
   ];
 

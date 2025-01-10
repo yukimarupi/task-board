@@ -1,9 +1,9 @@
 //  各列（Backlog、To Do、In Process、Done）を表し、その列内のタスクリストを管理。
-import React, { useState } from "react";
-import TaskCard from "./TaskCard";
-import BoardHeader from "./BoardHeader";
-import AddTaskButton from "./AddTaskButton";
-import AddTaskModal from "./AddTaskModal";
+import React, { useState } from 'react';
+import TaskCard from './TaskCard';
+import BoardHeader from './BoardHeader';
+import AddTaskButton from './AddTaskButton';
+import AddTaskModal from './AddTaskModal';
 
 interface ColumnProps {
   title: string;

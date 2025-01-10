@@ -1,38 +1,38 @@
 // src/pages/login.tsx
-import React, { useState } from "react";
-import { useRouter } from "next/router";
-import { useUser } from "../context/UserContext";
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useUser } from '../context/UserContext';
 
 const LoginPage: React.FC = () => {
   const { setUser } = useUser();
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
     // ダミーデータ (実際の認証処理はAPIと連携)
     const dummyUser = {
-      email: "nancy@example.com",
-      password: "password123",
-      name: "Nancy Martino",
-      role: "Designer",
-      image: "/images/profile.svg",
+      email: 'nancy@example.com',
+      password: 'password123',
+      name: 'Nancy Martino',
+      role: 'Designer',
+      image: '/images/profile.svg',
     };
 
     if (email === dummyUser.email && password === dummyUser.password) {
       // ユーザー情報を設定
       setUser({
-        id: "12345", // 初期値としてダミーIDを設定
+        id: '12345', // 初期値としてダミーIDを設定
         name: dummyUser.name,
         role: dummyUser.role,
         image: dummyUser.image,
       });
-      router.push("/"); // ダッシュボードへ遷移
+      router.push('/'); // ダッシュボードへ遷移
     } else {
-      setError("メールアドレスまたはパスワードが間違っています。");
+      setError('メールアドレスまたはパスワードが間違っています。');
     }
   };
 
@@ -43,7 +43,9 @@ const LoginPage: React.FC = () => {
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">メールアドレス</label>
+            <label className="block text-sm font-medium mb-2">
+              メールアドレス
+            </label>
             <input
               type="email"
               value={email}
