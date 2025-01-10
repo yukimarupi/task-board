@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   return (
@@ -79,15 +80,16 @@ const Header: React.FC = () => {
         </div>
         {/* プロフィール画像 */}
         <div className="relative w-8 h-8">
-          <Image
-            src="/images/profile.png" // 修正済みファイル名
-            alt="Profile"
-            width={32}
-            height={32}
-            className="rounded-full"
-          />
-        </div>
-      </div>
+          <Link href="/profile">
+            <Image
+              src="/images/profile.png"
+              alt="Profile"
+              width={32}
+              height={32}
+              className="rounded-full cursor-pointer"
+            />
+          </Link>
+</div>      </div>
     </header>
   );
 };
