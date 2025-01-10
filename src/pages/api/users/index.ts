@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:4000'; // バックエンドのURL
+import { API_BASE_URL } from '@/utils/constant';
 
 export default async function handler(
   req: NextApiRequest,

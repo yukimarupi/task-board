@@ -18,7 +18,7 @@ interface TaskCardProps {
   assignees: string[];
   comments: number;
   attachments: number;
-  tags: string[];
+  // tags: string[];
   dueDate: string;
 }
 
@@ -28,7 +28,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
   assignees,
   comments,
   attachments,
-  tags,
+  // tags,
   dueDate,
 }) => {
   return (
@@ -36,7 +36,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
       <h4 className="text-md font-semibold">{title}</h4>
       <p className="text-xs text-gray-500">{id}</p>
       <div className="flex flex-wrap space-x-2 mt-2">
-        {tags.map((tag, index) => (
+        {/* {tags.map((tag, index) => (
           <span
             key={index}
             className={`px-2 py-1 text-xs font-medium rounded ${
@@ -49,7 +49,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
           >
             {tag}
           </span>
-        ))}
+        ))} */}
       </div>
       <div className="flex items-center mt-4">
         <div className="flex -space-x-2">

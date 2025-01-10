@@ -1,30 +1,44 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { API_BASE_URL } from '@/utils/constant';
 import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:4000'; // バックエンドのURL
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === 'POST') {
+  if (req.method === 'GET') {
+    // タスク一覧を取得
+    console.log('🚀 ~ タスク一覧を取得:');
+
     try {
-      const { data } = await axios.post(`${API_BASE_URL}/tasks`, req.body); // バックエンドにリクエストを送信
+      const response = await axios.get(`${API_BASE_URL}/api/tasks`, req.body); // バックエンドにリクエストを送信
+      console.log('🚀 ~ response.data:', response.data);
+
+      res.status(200).json(response.data);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+      res.status(500).json({ error: 'Failed to fetch tasks' });
+    }
+  } else if (req.method === 'POST') {
+    // 新しいタスクを追加
+    const { taskName, status, dueDate, createdById, assignedToId } = req.body;
+
+    if (!taskName || !status || !dueDate || !createdById || !assignedToId) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    try {
+      const { data } = await axios.post(`${API_BASE_URL}/api/tasks`, req.body); // バックエンドにリクエストを送信
       res.status(201).json(data);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        // AxiosErrorの場合
-        res.status(error.response?.status || 500).json({
-          error:
-            error.response?.data || 'An error occurred while adding the task.',
-        });
-      } else {
-        // その他のエラーの場合
-        res.status(500).json({ error: 'An unexpected error occurred.' });
-      }
+      console.error('Error creating task:', error);
+      res.status(500).json({ error: 'Failed to create task' });
     }
+  } else if (req.method === 'PATCH') {
+    // タスクを更新
   } else {
-    res.setHeader('Allow', ['POST']);
+    // その他の HTTP メソッドは許可しない
+    res.setHeader('Allow', ['GET', 'POST', 'PATCH']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

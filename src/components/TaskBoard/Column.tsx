@@ -5,18 +5,20 @@ import BoardHeader from './BoardHeader';
 import AddTaskButton from './AddTaskButton';
 import AddTaskModal from './AddTaskModal';
 
+interface Task {
+  id: string;
+  title: string;
+  status: string;
+  assignees: string[];
+  comments: number;
+  attachments: number;
+  // tags: string[];
+  dueDate: string;
+}
+
 interface ColumnProps {
   title: string;
-  tasks: {
-    id: string;
-    title: string;
-    status: string;
-    assignees: string[];
-    comments: number;
-    attachments: number;
-    tags: string[];
-    dueDate: string;
-  }[];
+  tasks: Task[];
 }
 
 const Column: React.FC<ColumnProps> = ({ title, tasks }) => {
@@ -35,7 +37,7 @@ const Column: React.FC<ColumnProps> = ({ title, tasks }) => {
       assignees: [],
       comments: 0,
       attachments: 0,
-      tags: [title],
+      // tags: [title],
       dueDate: newTask.dueDate,
     };
 
