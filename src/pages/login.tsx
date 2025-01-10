@@ -19,7 +19,7 @@ const LoginPage: React.FC = () => {
       password: "password123",
       name: "Nancy Martino",
       role: "Designer",
-      image: "/images/profile.png",
+      image: "/images/profile.svg",
     };
 
     if (email === dummyUser.email && password === dummyUser.password) {

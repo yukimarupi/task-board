@@ -9,7 +9,7 @@ const SubHeader: React.FC = () => {
       <div className="flex items-center space-x-4">
         <button className="flex items-center space-x-2 px-3 py-2 bg-gray-100 rounded-md">
           <Image
-            src="/icons/BoardView.png"
+            src="/icons/BoardView.svg"
             alt="Board View"
             width={24}
             height={24}

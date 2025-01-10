@@ -19,7 +19,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     id: "12345", // 初期値としてダミーIDを設定
     name: "Nancy Martino",
     role: "Designer",
-    image: "/images/profile.png",
+    image: "/images/profile.svg",
   });
 
   return (

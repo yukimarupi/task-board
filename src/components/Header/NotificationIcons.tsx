@@ -16,7 +16,7 @@ const NotificationIcons: React.FC = () => {
       {/* プロフィール画像 */}
       <div className="w-10 h-10">
         <Image
-          src="/profile.png"
+          src="/profile.svg"
           alt="User Profile"
           width={40} // 必要に応じて変更可能
           height={40}

@@ -9,7 +9,7 @@ const Sidebar: React.FC = () => {
   const { user } = useUser(); // ログイン中のユーザー情報を取得
 
   const menuItems = [
-    { name: "Inbox", count: 4, icon: "/icons/inbox.png", href: "/inbox" },
+    { name: "Inbox", count: 4, icon: "/icons/inbox.svg", href: "/inbox" },
     { name: "Drive Files", count: 435, icon: "/icons/driveFiles.png", href: "/drive-files" },
     { name: "Boards", count: 5, icon: "/icons/Boards.png", href: "/boards" },
     { name: "Updates", count: 2, icon: "/icons/Updates.png", href: "/updates" },
