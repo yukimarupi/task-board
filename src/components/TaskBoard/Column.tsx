@@ -19,15 +19,12 @@ interface Task {
 interface ColumnProps {
   title: string;
   tasks: Task[];
+  onAddTask: (task: Task) => void; // タスク追加のための関数
 }
 
-const Column: React.FC<ColumnProps> = ({ title, tasks }) => {
+const Column: React.FC<ColumnProps> = ({ title, tasks, onAddTask }) => {
+  console.log('🚀 ~ Column tasks:', tasks);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [taskList, setTaskList] = useState(tasks); // タスクリストを状態で管理
-
-  const handleAddTask = () => {
-    setIsModalOpen(true); // モーダルを開く
-  };
 
   const handleAddTaskSubmit = (newTask: { title: string; dueDate: string }) => {
     const newTaskData = {
@@ -35,25 +32,24 @@ const Column: React.FC<ColumnProps> = ({ title, tasks }) => {
       title: newTask.title,
       status: title,
       assignees: [],
-      comments: 0,
       attachments: 0,
-      // tags: [title],
       dueDate: newTask.dueDate,
     };
 
-    setTaskList((prev) => [...prev, newTaskData]); // 新しいタスクをリストに追加
+    // タスクの追加を親コンポーネントに通知する
+    onAddTask(newTaskData); // 親コンポーネントに通知
     setIsModalOpen(false); // モーダルを閉じる
   };
 
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-      <BoardHeader title={title} count={taskList.length} />
+      <BoardHeader title={title} count={tasks.length} />
       <div className="space-y-4">
-        {taskList.map((task) => (
+        {tasks.map((task) => (
           <TaskCard key={task.id} {...task} />
         ))}
       </div>
-      <AddTaskButton onClick={handleAddTask} />
+      <AddTaskButton onClick={() => setIsModalOpen(true)} />
       {isModalOpen && (
         <AddTaskModal
           onClose={() => setIsModalOpen(false)}

@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-interface Task {
+export interface Task {
   id: string;
   title: string; // フロントエンドで使用するプロパティ
   status: string;
