@@ -1,10 +1,11 @@
-//ヘッダー
-
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useUser } from "@/context/UserContext"; // 絶対パスでUserContextをインポート
 
 const Header: React.FC = () => {
+  const { user } = useUser(); // Contextからユーザー情報を取得
+
   return (
     <header className="flex justify-between items-center bg-gray-100 px-6 py-4 shadow-sm">
       {/* 左側: 検索バー */}
@@ -82,14 +83,15 @@ const Header: React.FC = () => {
         <div className="relative w-8 h-8">
           <Link href="/profile">
             <Image
-              src="/images/profile.png"
+              src={user?.image || "/images/default-profile.png"} // Contextからユーザー画像を取得
               alt="Profile"
               width={32}
               height={32}
               className="rounded-full cursor-pointer"
             />
           </Link>
-</div>      </div>
+        </div>
+      </div>
     </header>
   );
 };

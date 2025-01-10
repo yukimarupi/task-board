@@ -1,5 +1,5 @@
 // src/components/TaskBoard/AddTaskButton.tsx
-//タスク追加用のボタンコンポーネント。
+// 新しいタスクを追加するボタン。
 import React from "react";
 import Image from "next/image";
 

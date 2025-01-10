@@ -25,6 +25,7 @@ const LoginPage: React.FC = () => {
     if (email === dummyUser.email && password === dummyUser.password) {
       // ユーザー情報を設定
       setUser({
+        id: "12345", // 初期値としてダミーIDを設定
         name: dummyUser.name,
         role: dummyUser.role,
         image: dummyUser.image,

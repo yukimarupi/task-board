@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 type User = {
+  id: string; // ユーザーIDを追加
   name: string;
   role: string;
   image: string;
@@ -15,6 +16,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>({
+    id: "12345", // 初期値としてダミーIDを設定
     name: "Nancy Martino",
     role: "Designer",
     image: "/images/profile.png",

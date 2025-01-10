@@ -42,7 +42,7 @@ const Sidebar: React.FC = () => {
         <ProfileCard
           name={user.name}
           role={user.role}
-          image={user.image}
+          image={user.image || "/images/default-profile.png"} // デフォルト画像を指定
         />
       )}
 
