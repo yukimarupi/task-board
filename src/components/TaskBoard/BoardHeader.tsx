@@ -1,6 +1,6 @@
 
 // src/components/TaskBoard/BoardHeader.tsx
-//タスクボードのヘッダー部分。
+//各列のタイトルとタスク数を表示。
 import React from "react";
 
 interface BoardHeaderProps {

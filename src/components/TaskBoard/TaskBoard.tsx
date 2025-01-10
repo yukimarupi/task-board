@@ -1,4 +1,4 @@
-//タスクボード全体のメインコンポーネント。
+//ボード全体、複数の列（Column）を表示。
 import React from "react";
 import Column from "./Column";
 
