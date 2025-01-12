@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { useRouter } from 'next/router'; // 修正ポイント
 
 // 型定義
 type LoginResponse = {
@@ -10,6 +11,7 @@ type LoginResponse = {
     role: string;
     image?: string;
   };
+  token: string;
 };
 
 type RegisterResponse = {
@@ -22,6 +24,7 @@ type RegisterResponse = {
 };
 
 const LoginPage: React.FC = () => {
+  const router = useRouter(); // 修正ポイント
   const [isRegistering, setIsRegistering] = useState(false); // 状態切り替え
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +33,7 @@ const LoginPage: React.FC = () => {
   // ログインミューテーション
   const loginMutation = useMutation<
     LoginResponse,
-    Error,
+    { response?: { data?: { error?: string } }; message: string },
     { email: string; password: string }
   >({
     mutationFn: async ({ email, password }) => {
@@ -42,18 +45,31 @@ const LoginPage: React.FC = () => {
     },
     onSuccess: (data) => {
       console.log('ログイン成功:', data);
+
+      // トークンとユーザー情報を保存
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+
+      // 入力フィールドをリセット
       setEmail('');
       setPassword('');
+
+      // ホームページにリダイレクト
+      router.push('/');
     },
     onError: (error) => {
-      console.error('ログイン失敗:', error.message);
+      console.error('ログイン失敗:', error.response?.data || error.message);
+      alert(
+        error.response?.data?.error ||
+          'ログインに失敗しました。メールアドレスとパスワードを確認してください。'
+      );
     },
   });
 
   // 新規登録ミューテーション
   const registerMutation = useMutation<
     RegisterResponse,
-    Error,
+    { response?: { data?: { error?: string } }; message: string },
     { username: string; email: string; password: string }
   >({
     mutationFn: async ({ username, email, password }) => {
@@ -65,12 +81,21 @@ const LoginPage: React.FC = () => {
     },
     onSuccess: (data) => {
       console.log('登録成功:', data);
+
+      // 入力フィールドをリセット
       setUsername('');
       setEmail('');
       setPassword('');
+
+      // ログイン画面に戻す
+      setIsRegistering(false);
     },
     onError: (error) => {
-      console.error('登録失敗:', error.message);
+      console.error('登録失敗:', error.response?.data || error.message);
+      alert(
+        error.response?.data?.error ||
+          '登録に失敗しました。もう一度お試しください。'
+      );
     },
   });
 
@@ -130,6 +155,7 @@ const LoginPage: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="メールアドレス"
+            autoComplete="email"
             required
           />
           <input
@@ -137,6 +163,7 @@ const LoginPage: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="パスワード"
+            autoComplete="current-password"
             required
           />
           <button type="submit">ログイン</button>
