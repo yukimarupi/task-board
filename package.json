@@ -12,7 +12,7 @@
   "dependencies": {
     "@jridgewell/sourcemap-codec": "^1.5.0",
     "@rollup/plugin-terser": "^0.4.4",
-    "@tanstack/react-query": "^5.63.0",
+    "@tanstack/react-query": "^5.64.0",
     "glob": "^11.0.0",
     "lru-cache": "^11.0.2",
     "next": "15.1.3",

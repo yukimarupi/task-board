@@ -1,4 +1,3 @@
-
 //TypeScriptの設定ファイル。
 {
   "compilerOptions": {
@@ -15,6 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "noImplicitAny": false,
     "plugins": [
       {
         "name": "next"
