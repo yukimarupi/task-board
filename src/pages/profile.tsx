@@ -1,34 +1,66 @@
-import React, { useState } from 'react';
-import { useUser } from '../context/UserContext';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Image from 'next/image';
+
+// ユーザー型を定義
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  profileImage?: string;
+}
 
 const ProfilePage = () => {
-  const { user, setUser } = useUser();
-
+  const [user, setUser] = useState<User | null>(null); // 型を指定
   const [editMode, setEditMode] = useState(false);
-  const [name, setName] = useState(user?.name || '');
-  const [role, setRole] = useState(user?.role || '');
-  const [image, setImage] = useState(user?.image || '');
-  const [userId, setUserId] = useState(user?.id || '');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [profileImage, setProfileImage] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const handleSave = () => {
-    if (!name || !role || !userId) {
-      alert('すべてのフィールドを入力してください。');
-      return;
+  // 初回レンダリング時にデータ取得
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/api/users/1'); // バックエンドURL
+        console.log('ユーザー情報:', response.data); // デバッグ用
+        setUser(response.data); // ユーザー情報をステートに保存
+        setUsername(response.data.username);
+        setEmail(response.data.email);
+        setProfileImage(response.data.profileImage || '');
+      } catch (error) {
+        console.error('ユーザー取得エラー:', error);
+      } finally {
+        setLoading(false); // ローディング終了
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const handleSave = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:4000/api/users/${user?.id}`, // 完全なバックエンドURLを使用
+        {
+          username,
+          email,
+          profileImage,
+        }
+      );
+
+      const updatedUser: User = response.data;
+      setUser(updatedUser);
+      setEditMode(false);
+    } catch (error) {
+      console.error('ユーザー更新エラー:', error);
+      alert('更新に失敗しました。');
     }
-
-    const updatedUser = { ...user, name, role, image, id: userId };
-    setUser(updatedUser); // Contextのユーザー情報を更新
-    setEditMode(false);
   };
 
-  const handleCancel = () => {
-    // 編集内容をリセット
-    setName(user?.name || '');
-    setRole(user?.role || '');
-    setImage(user?.image || '');
-    setUserId(user?.id || '');
-    setEditMode(false);
-  };
+  if (loading) {
+    return <p>読み込み中...</p>;
+  }
 
   if (!user) {
     return <p>ユーザー情報が見つかりません。</p>;
@@ -43,35 +75,28 @@ const ProfilePage = () => {
             <label className="block text-sm font-medium">名前:</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full border p-2 rounded"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium">役職:</label>
+            <label className="block text-sm font-medium">メールアドレス:</label>
             <input
               type="text"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full border p-2 rounded"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium">画像URL:</label>
+            <label className="block text-sm font-medium">
+              プロフィール画像URL:
+            </label>
             <input
               type="text"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              className="w-full border p-2 rounded"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium">ユーザーID:</label>
-            <input
-              type="text"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
+              value={profileImage}
+              onChange={(e) => setProfileImage(e.target.value)}
               className="w-full border p-2 rounded"
             />
           </div>
@@ -83,7 +108,7 @@ const ProfilePage = () => {
               保存
             </button>
             <button
-              onClick={handleCancel}
+              onClick={() => setEditMode(false)}
               className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
             >
               キャンセル
@@ -93,19 +118,25 @@ const ProfilePage = () => {
       ) : (
         <div className="space-y-4">
           <div className="flex items-center space-x-6">
-            <img
-              src={user.image}
-              alt={user.name}
-              className="w-24 h-24 rounded-full"
+            <Image
+              src={user.profileImage || '/default-profile.png'} // デフォルト画像対応
+              alt={user.username}
+              width={96} // w-24 = 96px
+              height={96} // h-24 = 96px
+              className="rounded-full"
             />
             <div>
-              <p className="text-xl font-bold">{user.name}</p>
-              <p className="text-gray-600">{user.role}</p>
-              <p className="text-sm text-gray-500">ID: {user.id}</p>
+              <p className="text-xl font-bold">{user.username}</p>
+              <p className="text-gray-600">{user.email}</p>
             </div>
           </div>
           <button
-            onClick={() => setEditMode(true)}
+            onClick={() => {
+              setEditMode(true);
+              setUsername(user.username); // 編集時に現在の値を初期値として設定
+              setEmail(user.email);
+              setProfileImage(user.profileImage || '');
+            }}
             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             編集
