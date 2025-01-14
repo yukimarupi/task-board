@@ -83,7 +83,7 @@ const Header: React.FC = () => {
         <div className="relative w-8 h-8">
           <Link href="/profile">
             <Image
-              src={user?.image || '/images/default-profile.png'} // Contextからユーザー画像を取得
+              src={user?.profileImage || '/images/default-profile.png'} // Contextからユーザー画像を取得
               alt="Profile"
               width={32}
               height={32}

@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // src/pages/login.tsx
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useUser } from '../../../context/UserContext';
-
 
 const LoginPage: React.FC = () => {
   const { setUser } = useUser();
@@ -26,16 +27,16 @@ const LoginPage: React.FC = () => {
         const data = await response.json();
         setUser({
           id: data.user.id,
-          name: data.user.username,
+          username: data.user.username,
           role: 'Designer', // 必要に応じて変更
-          image: data.user.profileImage,
+          profileImage: data.user.profileImage,
         });
         router.push('/'); // ダッシュボードなどの遷移先
       } else {
         const errorData = await response.json();
         setError(errorData.error || 'ログインに失敗しました。');
       }
-    } catch (error) {
+    } catch (error: any) {
       setError('サーバーエラーが発生しました。');
     }
   };

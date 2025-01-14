@@ -27,12 +27,13 @@ const Column: React.FC<ColumnProps> = ({ title, tasks, onAddTask }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddTaskSubmit = (newTask: { title: string; dueDate: string }) => {
-    const newTaskData = {
+    const newTaskData: Task = {
       id: `#${Math.random().toString(36).substr(2, 5)}`, // ランダムなID
       title: newTask.title,
       status: title,
       assignees: [],
       attachments: 0,
+      comments: 0,
       dueDate: newTask.dueDate,
     };
 

@@ -20,7 +20,7 @@ const Dashboard: React.FC = () => {
   return (
     <div>
       <h1>ダッシュボード</h1>
-      <p>ようこそ、{user.name}さん</p>
+      <p>ようこそ、{user.username}さん</p>
     </div>
   );
 };

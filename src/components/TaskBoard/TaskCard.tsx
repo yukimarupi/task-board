@@ -26,7 +26,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
   id,
   title,
   assignees,
-  // comments,
+  comments,
   attachments,
   // tags,
   dueDate,

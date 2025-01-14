@@ -9,9 +9,9 @@ import React, {
 // ユーザーの型定義
 interface User {
   id: string;
-  name: string;
+  username: string;
+  profileImage: string;
   role: string;
-  image: string;
 }
 
 // コンテキストの型定義
