@@ -8,6 +8,9 @@ import { useUser } from '../../context/UserContext'; // ユーザー情報のコ
 const Sidebar: React.FC = () => {
   const { user } = useUser(); // ログイン中のユーザー情報を取得
 
+  // デバッグ用ログ
+  console.log('Sidebarで取得したユーザー情報:', user);
+
   const menuItems = [
     { name: 'Inbox', count: 4, icon: '/icons/inbox.svg', href: '/inbox' },
     {
@@ -78,12 +81,14 @@ const Sidebar: React.FC = () => {
       </div>
 
       {/* プロフィール */}
-      {user && (
+      {user ? (
         <ProfileCard
-          name={user.name}
-          role={user.role}
-          image={user.image || '/images/default-profile.png'} // デフォルト画像を指定
+          name={user.username} // ユーザー名
+          role={user.role || '未設定'} // 役職が未設定の場合
+          image={user.profileImage || '/images/default-profile.png'} // プロフィール画像（デフォルト）
         />
+      ) : (
+        <p className="text-gray-500 mb-6">ログインしていません</p>
       )}
 
       {/* メニュー */}

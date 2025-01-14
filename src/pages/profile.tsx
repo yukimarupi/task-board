@@ -11,37 +11,47 @@ interface User {
 }
 
 const ProfilePage = () => {
-  const [user, setUser] = useState<User | null>(null); // 型を指定
+  const [user, setUser] = useState<User | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [profileImage, setProfileImage] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // 初回レンダリング時にデータ取得
+  // 初回レンダリング時にユーザー情報を取得
   useEffect(() => {
     const fetchUser = async () => {
+      const userId = localStorage.getItem('userId'); // ローカルストレージからユーザーIDを取得
+      if (!userId) {
+        console.error('ユーザーIDが見つかりません。');
+        setLoading(false);
+        return;
+      }
+
       try {
-        const response = await axios.get('http://localhost:4000/api/users/1'); // バックエンドURL
-        console.log('ユーザー情報:', response.data); // デバッグ用
-        setUser(response.data); // ユーザー情報をステートに保存
+        const response = await axios.get(
+          `http://localhost:4000/api/users/${userId}`
+        );
+        console.log('ユーザー情報:', response.data);
+        setUser(response.data);
         setUsername(response.data.username);
         setEmail(response.data.email);
         setProfileImage(response.data.profileImage || '');
       } catch (error) {
-        console.error('ユーザー取得エラー:', error);
+        console.error('ユーザー情報取得エラー:', error);
       } finally {
-        setLoading(false); // ローディング終了
+        setLoading(false);
       }
     };
 
     fetchUser();
   }, []);
 
+  // ユーザー情報を保存
   const handleSave = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/users/${user?.id}`, // 完全なバックエンドURLを使用
+        `http://localhost:4000/api/users/${user?.id}`,
         {
           username,
           email,
@@ -58,10 +68,12 @@ const ProfilePage = () => {
     }
   };
 
+  // ローディング中の表示
   if (loading) {
     return <p>読み込み中...</p>;
   }
 
+  // ユーザー情報が取得できなかった場合
   if (!user) {
     return <p>ユーザー情報が見つかりません。</p>;
   }
@@ -119,10 +131,10 @@ const ProfilePage = () => {
         <div className="space-y-4">
           <div className="flex items-center space-x-6">
             <Image
-              src={user.profileImage || '/default-profile.png'} // デフォルト画像対応
+              src={user.profileImage || '/default-profile.png'}
               alt={user.username}
-              width={96} // w-24 = 96px
-              height={96} // h-24 = 96px
+              width={96}
+              height={96}
               className="rounded-full"
             />
             <div>
@@ -133,7 +145,7 @@ const ProfilePage = () => {
           <button
             onClick={() => {
               setEditMode(true);
-              setUsername(user.username); // 編集時に現在の値を初期値として設定
+              setUsername(user.username);
               setEmail(user.email);
               setProfileImage(user.profileImage || '');
             }}
