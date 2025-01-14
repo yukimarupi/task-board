@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
+import { API_URL } from '@/lib/config';
 
 // ユーザー型を定義
 interface User {
@@ -29,9 +30,7 @@ const ProfilePage = () => {
       }
 
       try {
-        const response = await axios.get(
-          `http://localhost:4000/api/users/${userId}`
-        );
+        const response = await axios.get(`${API_URL}/users/${userId}`);
         console.log('ユーザー情報:', response.data);
         setUser(response.data);
         setUsername(response.data.username);
@@ -50,14 +49,11 @@ const ProfilePage = () => {
   // ユーザー情報を保存
   const handleSave = async () => {
     try {
-      const response = await axios.put(
-        `http://localhost:4000/api/users/${user?.id}`,
-        {
-          username,
-          email,
-          profileImage,
-        }
-      );
+      const response = await axios.put(`${API_URL}/users/${user?.id}`, {
+        username,
+        email,
+        profileImage,
+      });
 
       const updatedUser: User = response.data;
       setUser(updatedUser);

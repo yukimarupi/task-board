@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router'; // 修正ポイント
+import { API_URL } from '@/lib/config';
 
 // 型定義
 type LoginResponse = {
@@ -38,7 +39,7 @@ const LoginPage: React.FC = () => {
   >({
     mutationFn: async ({ email, password }) => {
       const response = await axios.post<LoginResponse>(
-        'http://localhost:4000/api/users/login',
+        `${API_URL}/users/login`,
         { email, password }
       );
       return response.data;
@@ -74,7 +75,7 @@ const LoginPage: React.FC = () => {
   >({
     mutationFn: async ({ username, email, password }) => {
       const response = await axios.post<RegisterResponse>(
-        'http://localhost:4000/api/users/register',
+        `${API_URL}/users/register`,
         { username, email, password }
       );
       return response.data;

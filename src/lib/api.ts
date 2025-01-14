@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { API_URL } from './config';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:4000/api', // Express サーバーのベース URL
+  baseURL: API_URL, // Express サーバーのベース URL
   headers: {
     'Content-Type': 'application/json',
   },
