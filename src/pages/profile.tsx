@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import apiClient from '@/lib/api'; // apiClientをインポート
 import Image from 'next/image';
-import logout from '@/lib/logout'; // logout関数をインポート
+import apiClient from '@/lib/api'; // APIクライアントをインポート
+import logout from '@/lib/logout'; // ログアウト関数
 import { useRouter } from 'next/router'; // ルーターをインポート
 
 // ユーザー型を定義
@@ -18,26 +18,25 @@ const ProfilePage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [profileImage, setProfileImage] = useState('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const router = useRouter(); // ルーターを初期化
+  const router = useRouter();
 
   // 初回レンダリング時にユーザー情報を取得
   useEffect(() => {
     const fetchUser = async () => {
-      const storedUser = sessionStorage.getItem('user'); // セッションストレージからユーザー情報を取得
+      const storedUser = sessionStorage.getItem('user');
       if (!storedUser) {
         console.error('ユーザー情報が見つかりません。');
         setLoading(false);
         return;
       }
 
-      const userId = JSON.parse(storedUser).id; // UserIdを取得
+      const userId = JSON.parse(storedUser).id;
 
       try {
-        const response = await apiClient.get(`/users/${userId}`); // apiClientを使用してリクエスト
-        console.log('ユーザー情報:', response.data);
-
+        const response = await apiClient.get(`/users/${userId}`);
         setUser(response.data);
         setUsername(response.data.username);
         setEmail(response.data.email);
@@ -52,6 +51,36 @@ const ProfilePage: React.FC = () => {
     fetchUser();
   }, []);
 
+  // Cloudinaryに画像をアップロード
+
+  const handleImageUpload = async (file: File): Promise<string> => {
+    const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append(
+      'upload_preset',
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || ''
+    );
+
+    try {
+      const response = await fetch(CLOUDINARY_URL, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Cloudinaryアップロードエラー: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return data.secure_url; // アップロードされた画像のURL
+    } catch (error) {
+      console.error('画像アップロードエラー:', error);
+      throw error;
+    }
+  };
+
   // ユーザー情報を保存
   const handleSave = async () => {
     const storedUser = sessionStorage.getItem('user');
@@ -60,13 +89,20 @@ const ProfilePage: React.FC = () => {
       return;
     }
 
-    const userId = JSON.parse(storedUser).id; // UserIdを取得
+    const userId = JSON.parse(storedUser).id;
 
     try {
+      let uploadedImageUrl = profileImage;
+
+      // 新しい画像が選択されている場合はCloudinaryにアップロード
+      if (selectedFile) {
+        uploadedImageUrl = await handleImageUpload(selectedFile);
+      }
+
       const response = await apiClient.put(`/users/${userId}`, {
         username,
         email,
-        profileImage,
+        profileImage: uploadedImageUrl,
       });
 
       const updatedUser: User = response.data;
@@ -78,12 +114,16 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  // ローディング中の表示
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
   if (loading) {
     return <p>読み込み中...</p>;
   }
 
-  // ユーザー情報が取得できなかった場合
   if (!user) {
     return <p>ユーザー情報が見つかりません。</p>;
   }
@@ -113,14 +153,14 @@ const ProfilePage: React.FC = () => {
           </div>
           <div>
             <label className="block text-sm font-medium">
-              プロフィール画像URL:
+              プロフィール画像:
             </label>
-            <input
-              type="text"
-              value={profileImage}
-              onChange={(e) => setProfileImage(e.target.value)}
-              className="w-full border p-2 rounded"
-            />
+            <input type="file" onChange={handleFileChange} />
+            {selectedFile && (
+              <p className="text-sm text-gray-600 mt-2">
+                アップロード予定: {selectedFile.name}
+              </p>
+            )}
           </div>
           <div className="flex space-x-4 mt-4">
             <button
