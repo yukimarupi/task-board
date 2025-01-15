@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { useRouter } from 'next/router'; // 修正ポイント
-import { API_URL } from '@/lib/config';
+import apiClient from '@/lib/api'; // 修正ポイント
 
 // 型定義
 type LoginResponse = {
@@ -38,18 +37,18 @@ const LoginPage: React.FC = () => {
     { email: string; password: string }
   >({
     mutationFn: async ({ email, password }) => {
-      const response = await axios.post<LoginResponse>(
-        `${API_URL}/users/login`,
-        { email, password }
-      );
+      const response = await apiClient.post<LoginResponse>('/users/login', {
+        email,
+        password,
+      });
       return response.data;
     },
     onSuccess: (data) => {
       console.log('ログイン成功:', data);
 
-      // トークンとユーザー情報を保存
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      // トークンとユーザー情報をセッションストレージに保存
+      sessionStorage.setItem('token', data.token);
+      sessionStorage.setItem('user', JSON.stringify(data.user));
 
       // 入力フィールドをリセット
       setEmail('');
@@ -74,8 +73,8 @@ const LoginPage: React.FC = () => {
     { username: string; email: string; password: string }
   >({
     mutationFn: async ({ username, email, password }) => {
-      const response = await axios.post<RegisterResponse>(
-        `${API_URL}/users/register`,
+      const response = await apiClient.post<RegisterResponse>(
+        '/users/register',
         { username, email, password }
       );
       return response.data;

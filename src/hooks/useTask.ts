@@ -1,3 +1,4 @@
+import { apiClient } from '@/lib/api';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export interface Task {
@@ -90,3 +91,11 @@ export const useTask = () => {
     addTask,
   };
 };
+// リクエストインターセプターでトークンを付加
+apiClient.interceptors.request.use((config) => {
+  const token = sessionStorage.getItem('token'); // セッションストレージからトークンを取得
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});

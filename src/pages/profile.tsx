@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import apiClient from '@/lib/api'; // apiClientをインポート
 import Image from 'next/image';
-import { API_URL } from '@/lib/config';
+import logout from '@/lib/logout'; // logout関数をインポート
+import { useRouter } from 'next/router'; // ルーターをインポート
 
 // ユーザー型を定義
 interface User {
@@ -11,7 +12,7 @@ interface User {
   profileImage?: string;
 }
 
-const ProfilePage = () => {
+const ProfilePage: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [username, setUsername] = useState('');
@@ -19,19 +20,24 @@ const ProfilePage = () => {
   const [profileImage, setProfileImage] = useState('');
   const [loading, setLoading] = useState(true);
 
+  const router = useRouter(); // ルーターを初期化
+
   // 初回レンダリング時にユーザー情報を取得
   useEffect(() => {
     const fetchUser = async () => {
-      const userId = localStorage.getItem('userId'); // ローカルストレージからユーザーIDを取得
-      if (!userId) {
-        console.error('ユーザーIDが見つかりません。');
+      const storedUser = sessionStorage.getItem('user'); // セッションストレージからユーザー情報を取得
+      if (!storedUser) {
+        console.error('ユーザー情報が見つかりません。');
         setLoading(false);
         return;
       }
 
+      const userId = JSON.parse(storedUser).id; // UserIdを取得
+
       try {
-        const response = await axios.get(`${API_URL}/users/${userId}`);
+        const response = await apiClient.get(`/users/${userId}`); // apiClientを使用してリクエスト
         console.log('ユーザー情報:', response.data);
+
         setUser(response.data);
         setUsername(response.data.username);
         setEmail(response.data.email);
@@ -48,8 +54,16 @@ const ProfilePage = () => {
 
   // ユーザー情報を保存
   const handleSave = async () => {
+    const storedUser = sessionStorage.getItem('user');
+    if (!storedUser) {
+      alert('ユーザー情報が見つかりません。');
+      return;
+    }
+
+    const userId = JSON.parse(storedUser).id; // UserIdを取得
+
     try {
-      const response = await axios.put(`${API_URL}/users/${user?.id}`, {
+      const response = await apiClient.put(`/users/${userId}`, {
         username,
         email,
         profileImage,
@@ -151,6 +165,21 @@ const ProfilePage = () => {
           </button>
         </div>
       )}
+
+      {/* ログアウトボタン */}
+      <button
+        onClick={logout}
+        className="mt-6 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+      >
+        ログアウト
+      </button>
+      {/* ホームページに戻るボタン */}
+      <button
+        onClick={() => router.push('/')}
+        className="mt-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+      >
+        ホームに戻る
+      </button>
     </div>
   );
 };
