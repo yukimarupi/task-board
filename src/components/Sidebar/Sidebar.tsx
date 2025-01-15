@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import ProfileCard from './ProfileCard';
 import MenuItem from './MenuItem';
-import { useUser } from '../../context/UserContext'; // ユーザー情報のコンテキストをインポート
+import apiClient from '@/lib/api'; // APIクライアントをインポート
+
+interface User {
+  id: number;
+  username: string;
+  profileImage?: string;
+  role?: string;
+}
 
 const Sidebar: React.FC = () => {
-  const { user } = useUser(); // ログイン中のユーザー情報を取得
+  const [user, setUser] = useState<User | null>(null);
 
-  // デバッグ用ログ
-  console.log('Sidebarで取得したユーザー情報:', user);
+  // 初回レンダリング時にユーザー情報を取得
+  useEffect(() => {
+    const fetchUser = async () => {
+      const storedUser = sessionStorage.getItem('user'); // セッションストレージからユーザー情報を取得
+      if (!storedUser) {
+        console.error('ユーザー情報が見つかりません。');
+        return;
+      }
+
+      const userId = JSON.parse(storedUser).id; // UserIDを取得
+
+      try {
+        const response = await apiClient.get(`/users/${userId}`); // APIリクエストでユーザー情報を取得
+        setUser(response.data);
+      } catch (error) {
+        console.error('ユーザー情報取得エラー:', error);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const menuItems = [
     { name: 'Inbox', count: 4, icon: '/icons/inbox.svg', href: '/inbox' },
@@ -80,15 +105,23 @@ const Sidebar: React.FC = () => {
         </div>
       </div>
 
-      {/* プロフィール */}
+      {/* プロフィール情報 */}
       {user ? (
-        <ProfileCard
-          name={user.username} // ユーザー名
-          role={user.role || '未設定'} // 役職が未設定の場合
-          image={user.profileImage || '/images/default-profile.png'} // プロフィール画像（デフォルト）
-        />
+        <div className="flex items-center mb-8">
+          <Image
+            src={user.profileImage || '/images/default-profile.png'} // プロフィール画像（デフォルト画像を設定）
+            alt={user.username}
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+          <div className="ml-4">
+            <h3 className="text-sm font-bold">{user.username}</h3>
+            <p className="text-xs text-gray-500">{user.role || '未設定'}</p>
+          </div>
+        </div>
       ) : (
-        <p className="text-gray-500 mb-6">ログインしていません</p>
+        <p className="text-gray-500 mb-6">ユーザー情報を取得中...</p>
       )}
 
       {/* メニュー */}
