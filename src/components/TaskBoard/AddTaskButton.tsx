@@ -1,25 +1,24 @@
-// src/components/TaskBoard/AddTaskButton.tsx
-// 新しいタスクを追加するボタン。
 import React from 'react';
 import Image from 'next/image';
 
 interface AddTaskButtonProps {
-  onClick: () => void;
+  onClick: () => void; // クリックイベントを受け取るプロパティ
 }
 
 const AddTaskButton: React.FC<AddTaskButtonProps> = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="flex items-center justify-center w-full mt-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-md"
+      className="flex items-center justify-center w-full py-2 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
     >
       <Image
-        src="/icons/add-icon.png" // `public/icons` にアイコンを配置してください
+        src="/icons/add-icon.png" // アイコンのパスを確認してください
         alt="Add Task"
-        width={16}
-        height={16}
+        width={20}
+        height={20}
+        className="mr-2"
       />
-      <span className="ml-2 text-sm font-medium">Add Task</span>
+      <span className="text-sm font-medium">Add Task</span>
     </button>
   );
 };

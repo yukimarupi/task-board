@@ -35,7 +35,6 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({
   const handleSubmit = () => {
     if (taskName && dueDate) {
       onSubmit({ title: taskName, dueDate, tags }); // タグを含むデータを送信
-      setTaskName('');
       setDueDate('');
       setTags([]);
     }
