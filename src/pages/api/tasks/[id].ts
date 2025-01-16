@@ -1,3 +1,5 @@
+//特定のタスクを取得、更新、削除するためのAPIエンドポイント。
+
 // import type { NextApiRequest, NextApiResponse } from 'next';
 // import axios from 'axios';
 // import { API_BASE_URL } from '@/utils/constant';

@@ -1,3 +1,5 @@
+//タスク追加用のモーダルウィンドウ。
+
 import { useState } from 'react';
 
 interface AddTaskModalProps {

@@ -1,10 +1,16 @@
-//タスクに関する型（例: タスクID、ステータス、期限など）。
 export interface Task {
-  id: string;
-  title: string;
-  status: 'Backlog' | 'To Do' | 'In Process' | 'Done';
-  assignees: string[]; // ユーザーIDまたはアバター画像URL
-  comments: number;
-  attachments: number;
+  id: number;
+  taskName: string;
+  status: string;
   dueDate: string;
+  createdBy: {
+    id: number;
+    username: string;
+    profileImage?: string;
+  };
+  assignedTo: {
+    id: number;
+    username: string;
+    profileImage?: string;
+  };
 }
