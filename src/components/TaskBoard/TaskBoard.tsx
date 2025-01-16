@@ -24,8 +24,10 @@ const TaskBoard: React.FC = () => {
     dueDate: string;
     tags: string[];
   }) => {
+    console.log('🚀 ~ handleAddTask:');
     try {
       // タスク追加用APIリクエスト
+      //taskRoutes.tsのpostに飛ぶ
       const response = await axios.post(`${API_BASE_URL}/api/tasks`, {
         taskName: newTask.title,
         status,
@@ -35,6 +37,7 @@ const TaskBoard: React.FC = () => {
         assignedTo: 1, // 仮のデータ: 割り当て先ユーザーID
       });
 
+      console.log('🚀 ~ response:', response);
       // 成功時のフィードバック
       setMessage('タスクが正常に作成されました');
       console.log('新しいタスク:', response.data);
